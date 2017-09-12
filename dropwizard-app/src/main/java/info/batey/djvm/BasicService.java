@@ -1,10 +1,6 @@
 package info.batey.djvm;
 
 import com.google.common.util.concurrent.Uninterruptibles;
-import info.examples.batey.async.thirdparty.Permissions;
-import info.examples.batey.async.thirdparty.PermissionsService;
-import info.examples.batey.async.thirdparty.User;
-import info.examples.batey.async.thirdparty.UserService;
 import org.apache.http.client.HttpClient;
 import org.apache.http.client.methods.HttpGet;
 import org.apache.http.util.EntityUtils;

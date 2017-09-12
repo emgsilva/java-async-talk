@@ -3,3 +3,5 @@
 build
 .gradle
 .attach*
+dropwizard-app/out
+standalone/out

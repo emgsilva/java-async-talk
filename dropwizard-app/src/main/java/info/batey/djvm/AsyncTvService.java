@@ -5,7 +5,10 @@ import info.examples.batey.async.thirdparty.*;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import javax.ws.rs.*;
+import javax.ws.rs.GET;
+import javax.ws.rs.Path;
+import javax.ws.rs.PathParam;
+import javax.ws.rs.Produces;
 import javax.ws.rs.container.AsyncResponse;
 import javax.ws.rs.container.Suspended;
 import java.util.concurrent.CompletableFuture;
@@ -36,8 +39,8 @@ public class AsyncTvService {
     @GET
     @Path("/user/{user}/{permission}")
     public void userPermission(@Suspended AsyncResponse asyncResponse,
-                                  @PathParam("user") String userName,
-                                  @PathParam("permission") String permission) {
+                               @PathParam("user") String userName,
+                               @PathParam("permission") String permission) {
         users.lookupUserCompletable(userName)
                 .thenCompose(user -> permissions.permissionsCompletable(user.getUserId()))
                 .thenAccept(p -> asyncResponse.resume(p.hasPermission(permission)));
@@ -46,9 +49,9 @@ public class AsyncTvService {
     @GET
     @Path("/watch-channel/{user}/{permission}/{channel}")
     public void watchChannel(@Suspended AsyncResponse asyncResponse,
-                                @PathParam("user") String userName,
-                                @PathParam("permission") String permission,
-                                @PathParam("channel") String channel) {
+                             @PathParam("user") String userName,
+                             @PathParam("permission") String permission,
+                             @PathParam("channel") String channel) {
         CompletableFuture<Permissions> cPermission = users.lookupUserCompletable(userName)
                 .thenCompose(user -> permissions.permissionsCompletable(user.getUserId()));
 
@@ -64,8 +67,8 @@ public class AsyncTvService {
     @GET
     @Path("/watch-channel-fast/{user}/{permission}/{channel}")
     public void watchChannelFast(@PathParam("user") String userName,
-                                    @PathParam("permission") String permission,
-                                    @PathParam("channel") String channel) {
+                                 @PathParam("permission") String permission,
+                                 @PathParam("channel") String channel) {
         // no need to implement, it just happened
     }
 
@@ -76,7 +79,7 @@ public class AsyncTvService {
                                     @PathParam("permission") String permission,
                                     @PathParam("channel") String channel) {
 
-         CompletableFuture<Permissions> cPermission = users.lookupUserCompletable(userName)
+        CompletableFuture<Permissions> cPermission = users.lookupUserCompletable(userName)
                 .thenCompose(user -> permissions.permissionsCompletable(user.getUserId()));
 
         CompletableFuture<Channel> cChannel = channels.lookupChannelCompletable(channel);
